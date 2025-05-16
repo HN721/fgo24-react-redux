@@ -1,6 +1,6 @@
 # React Basic
 
-This repo contains the source code of the React to learn more about React-Hook-form to process form in react
+This repo contains the source code of the React to learn more about React-Hook-form to process form in react js
 
 ## Preview
 
