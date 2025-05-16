@@ -1,1 +1,6 @@
 @import "tailwindcss";
+@layer base{
+  .card-base{
+    @apply h-screen
+  }
+}

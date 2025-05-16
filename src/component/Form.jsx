@@ -2,10 +2,30 @@ import React, { useState } from "react";
 import Input from "./Input";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import Swal from "sweetalert2";
-
+const validation = yup.object({
+  firstName: yup
+    .string()
+    .min(3, "Nama Minimal 3 karakter")
+    .required("Nama Harus Diisi"),
+  age: yup.number().required("Umur Harus Diisi"),
+  gender: yup
+    .mixed()
+    .oneOf(["Laki-Laki", "Perempuan"])
+    .required("Jenis Kelamin Harus diisi"),
+  smoker: yup.mixed().oneOf(["Ya", "Tidak"]),
+  cigare: yup.array().notRequired(),
+});
 export default function Form() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validation),
+  });
   const [data, setData] = useState("");
   const navigate = useNavigate();
 
@@ -51,6 +71,9 @@ export default function Form() {
             className="w-full border-b-1"
             label={"Siapa Nama Anda"}
           />
+          {errors.firstName && (
+            <div className="text-red-600">{errors.firstName.message}</div>
+          )}
         </div>
         <div className="bg-white p-6 rounded-lg  shadow-lg w-1/2">
           <Input
@@ -59,6 +82,9 @@ export default function Form() {
             {...register("age")}
             label="Berapa umur Anda"
           />
+          {errors.firstName && (
+            <div className="text-red-600">{errors.age.message}</div>
+          )}
         </div>
         <div className="bg-white p-6 rounded-lg  shadow-lg w-1/2">
           <Input
@@ -68,6 +94,9 @@ export default function Form() {
             value={["Laki-Laki", "Perempuan"]}
             label="Apa Jenis Kelamin Anda"
           />
+          {errors.firstName && (
+            <div className="text-red-600">{errors.gender.message}</div>
+          )}
         </div>
         <div className="bg-white p-6 rounded-lg  shadow-lg w-1/2">
           <Input
@@ -77,6 +106,9 @@ export default function Form() {
             value={["Ya", "Tidak"]}
             label="Apa Kah Anda Merokok"
           />
+          {errors.firstName && (
+            <div className="text-red-600">{errors.smoker.message}</div>
+          )}
         </div>
         <div className="bg-white p-6 rounded-lg  shadow-lg w-1/2">
           <Input
@@ -86,7 +118,11 @@ export default function Form() {
             value={["Esse", "Gudang Garam", "Marlboro"]}
             label="Jenis Rokok Anda"
           />
+          {errors.firstName && (
+            <div className="text-red-600">{errors.cigare.message}</div>
+          )}
         </div>
+
         <div className="  w-1/2  mb-20">
           <button
             type="submit"
