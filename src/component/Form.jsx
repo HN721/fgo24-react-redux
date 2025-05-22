@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { addData } from "../redux/slice/Form";
+
 const validation = yup.object({
   firstName: yup
     .string()
@@ -19,6 +22,7 @@ const validation = yup.object({
   cigare: yup.array().notRequired(),
 });
 export default function Form() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -29,13 +33,8 @@ export default function Form() {
   const [data, setData] = useState("");
   const navigate = useNavigate();
 
-  console.log(data);
   function toLocal(formData) {
-    const oldData = JSON.parse(localStorage.getItem("data") || "[]");
-    oldData.push(formData);
-    const jsonData = JSON.stringify(oldData);
-    setData(jsonData);
-    localStorage.setItem("data", jsonData);
+    dispatch(addData(formData));
     Swal.fire({
       title: "Sucess Menambahkan Data!",
       icon: "success",
@@ -82,7 +81,7 @@ export default function Form() {
             {...register("age")}
             label="Berapa umur Anda"
           />
-          {errors.firstName && (
+          {errors.age && (
             <div className="text-red-600">{errors.age.message}</div>
           )}
         </div>
@@ -94,7 +93,7 @@ export default function Form() {
             value={["Laki-Laki", "Perempuan"]}
             label="Apa Jenis Kelamin Anda"
           />
-          {errors.firstName && (
+          {errors.gender && (
             <div className="text-red-600">{errors.gender.message}</div>
           )}
         </div>
@@ -106,7 +105,7 @@ export default function Form() {
             value={["Ya", "Tidak"]}
             label="Apa Kah Anda Merokok"
           />
-          {errors.firstName && (
+          {errors.smoker && (
             <div className="text-red-600">{errors.smoker.message}</div>
           )}
         </div>
@@ -118,7 +117,7 @@ export default function Form() {
             value={["Esse", "Gudang Garam", "Marlboro"]}
             label="Jenis Rokok Anda"
           />
-          {errors.firstName && (
+          {errors.cigare && (
             <div className="text-red-600">{errors.cigare.message}</div>
           )}
         </div>

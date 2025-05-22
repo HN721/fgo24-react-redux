@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { removeData } from "../redux/slice/Form";
 
 export default function Table() {
   const [data, setData] = useState([]);
+  const formData = useSelector((state) => state.form.form);
 
   useEffect(() => {
-    const storedData = localStorage.getItem("data");
-    if (storedData) {
-      setData(JSON.parse(storedData));
+    if (formData) {
+      setData(formData);
     }
   }, []);
-
+  const handleDelete = (index) => {
+    dispatch(removeData(index));
+  };
   return (
     <div className="p-4">
       <div className="overflow-x-auto rounded-2xl shadow">
@@ -22,6 +26,7 @@ export default function Table() {
               <th className="px-4 py-3 font-medium text-gray-700">Age</th>
               <th className="px-4 py-3 font-medium text-gray-700">Smoker</th>
               <th className="px-4 py-3 font-medium text-gray-700">Type of</th>
+              <th className="px-4 py-3 font-medium text-gray-700">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
@@ -35,6 +40,14 @@ export default function Table() {
                   {item.smoker ? "Yes" : "No"}
                 </td>
                 <td className="px-4 py-2 text-gray-600">{item.cigare}</td>
+                <td className="px-4 py-2 text-gray-600">
+                  <button
+                    onClick={() => handleDelete(index)}
+                    className="text-red-500 hover:underline"
+                  >
+                    Hapus
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
