@@ -7,7 +7,7 @@ const FormSlice = createSlice({
   },
   reducers: {
     addData: (state, action) => {
-      state.form.push(action.payload);
+      state.form.push({ ...action.payload });
     },
     removeData: (state, action) => {
       state.form = state.form.filter((_, index) => index !== action.payload);

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeData } from "../redux/slice/Form";
 
 export default function Table() {
   const [data, setData] = useState([]);
   const formData = useSelector((state) => state.form.form);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (formData) {
       setData(formData);
