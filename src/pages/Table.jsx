@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeData } from "../redux/slice/Form";
+import { removeData } from "../redux/slice/surveyResult";
 
 export default function Table() {
   const [data, setData] = useState([]);

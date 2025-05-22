@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
-import { addData } from "../redux/slice/Form";
+import { addData } from "../redux/slice/surveyResult";
 
 const validation = yup.object({
   firstName: yup
