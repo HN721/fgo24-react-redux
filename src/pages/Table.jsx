@@ -10,7 +10,7 @@ export default function Table() {
     if (formData) {
       setData(formData);
     }
-  }, []);
+  }, [formData]);
   const handleDelete = (index) => {
     dispatch(removeData(index));
   };
@@ -42,7 +42,7 @@ export default function Table() {
                 <td className="px-4 py-2 text-gray-600">{item.cigare}</td>
                 <td className="px-4 py-2 text-gray-600">
                   <button
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(item.id)}
                     className="text-red-500 hover:underline"
                   >
                     Hapus
